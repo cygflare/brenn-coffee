@@ -5,17 +5,31 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
-        // Brenn brand palette
+        // Brenn brand palette — values defined as CSS variables in globals.css
+        // and swapped between dark/light themes via [data-theme="..."].
+        // Token names retain their original semantic role across both themes:
+        //   ink-* = surface family (darkest in dark mode, lightest in light mode)
+        //   bone-* = text family (lightest in dark mode, darkest in light mode)
+        //   ember-* = brand accent (unchanged across themes)
         ink: {
-          DEFAULT: '#0a0908',
-          900: '#0a0908',
-          800: '#0d0b0a',
-          700: '#0f0d0c',
-          600: '#14110f',
-          500: '#1f1a16',
+          DEFAULT: 'rgb(var(--c-ink-900) / <alpha-value>)',
+          900: 'rgb(var(--c-ink-900) / <alpha-value>)',
+          800: 'rgb(var(--c-ink-800) / <alpha-value>)',
+          700: 'rgb(var(--c-ink-700) / <alpha-value>)',
+          600: 'rgb(var(--c-ink-600) / <alpha-value>)',
+          500: 'rgb(var(--c-ink-500) / <alpha-value>)',
+        },
+        bone: {
+          DEFAULT: 'rgb(var(--c-bone-200) / <alpha-value>)',
+          50: 'rgb(var(--c-bone-50) / <alpha-value>)',
+          100: 'rgb(var(--c-bone-100) / <alpha-value>)',
+          200: 'rgb(var(--c-bone-200) / <alpha-value>)',
+          300: 'rgb(var(--c-bone-300) / <alpha-value>)',
+          400: 'rgb(var(--c-bone-400) / <alpha-value>)',
         },
         ember: {
           DEFAULT: '#E8551C',
@@ -28,14 +42,6 @@ const config: Config = {
           700: '#a3300c',
           800: '#7a2509',
           900: '#511907',
-        },
-        bone: {
-          DEFAULT: '#ebe6dd',
-          50: '#fafaf6',
-          100: '#f5f0e6',
-          200: '#ebe6dd',
-          300: '#d8d0c0',
-          400: '#a8a193',
         },
       },
       fontFamily: {

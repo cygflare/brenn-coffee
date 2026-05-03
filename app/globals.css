@@ -5,6 +5,60 @@
 :root {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: 'Cormorant Garamond', Georgia, serif;
+
+  /* Default palette = dark (also applied when [data-theme="dark"]) */
+  --c-ink-900: 10 9 8;
+  --c-ink-800: 13 11 10;
+  --c-ink-700: 15 13 12;
+  --c-ink-600: 20 17 15;
+  --c-ink-500: 31 26 22;
+
+  --c-bone-50:  250 250 246;
+  --c-bone-100: 245 240 230;
+  --c-bone-200: 235 230 221;
+  --c-bone-300: 216 208 192;
+  --c-bone-400: 168 161 147;
+
+  color-scheme: dark;
+}
+
+/* ============================================================
+   DARK THEME — original Brenn brand (charcoal + bone + ember)
+   Same as :root defaults; explicit selector for next-themes.
+   ============================================================ */
+[data-theme="dark"] {
+  --c-ink-900: 10 9 8;
+  --c-ink-800: 13 11 10;
+  --c-ink-700: 15 13 12;
+  --c-ink-600: 20 17 15;
+  --c-ink-500: 31 26 22;
+
+  --c-bone-50:  250 250 246;
+  --c-bone-100: 245 240 230;
+  --c-bone-200: 235 230 221;
+  --c-bone-300: 216 208 192;
+  --c-bone-400: 168 161 147;
+
+  color-scheme: dark;
+}
+
+/* ============================================================
+   LIGHT THEME — warm paper + ink (sustains long sessions)
+   ============================================================ */
+[data-theme="light"] {
+  --c-ink-900: 250 247 240; /* paper — page bg */
+  --c-ink-800: 245 241 232; /* slight elevation */
+  --c-ink-700: 255 255 255; /* card bg */
+  --c-ink-600: 239 233 218; /* hover bg */
+  --c-ink-500: 229 223 211; /* borders / scrollbar */
+
+  --c-bone-50:  10 9 8;
+  --c-bone-100: 10 9 8;     /* darkest text — primary */
+  --c-bone-200: 31 29 25;   /* body text */
+  --c-bone-300: 79 76 70;   /* secondary */
+  --c-bone-400: 122 119 112;/* muted / captions */
+
+  color-scheme: light;
 }
 
 @layer base {
@@ -17,12 +71,10 @@
     font-family: var(--font-sans);
   }
 
-  /* Selection */
   ::selection {
     @apply bg-ember text-ink-900;
   }
 
-  /* Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -40,7 +92,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-ember text-ink-900 px-8 py-4 text-xs tracking-[0.18em] uppercase font-medium
+    @apply bg-ember text-white px-8 py-4 text-xs tracking-[0.18em] uppercase font-medium
            transition-all hover:bg-ember-400 hover:-translate-y-px;
   }
 
@@ -64,7 +116,6 @@
   }
 }
 
-/* Smooth fade-in for product cards */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -74,7 +125,6 @@
   animation: fadeUp 0.6s ease-out;
 }
 
-/* Marquee animation for scrolling banner */
 @keyframes scroll-x {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

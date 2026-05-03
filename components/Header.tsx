@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Search, User as UserIcon, ShoppingBag, Menu, X, LogOut, LayoutDashboard } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { useCart } from '@/lib/cart-store';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import type { AuthUser } from '@/lib/auth';
 
 const NAV_LINKS = [
@@ -78,6 +79,7 @@ export function Header({ user }: { user: AuthUser | null }) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle className="hidden sm:flex" />
             <button
               aria-label="Search"
               className="hidden sm:flex w-9 h-9 rounded-full border border-bone-200/15 items-center justify-center text-bone-200 hover:border-ember hover:text-ember transition-colors"
@@ -178,6 +180,10 @@ export function Header({ user }: { user: AuthUser | null }) {
               </Link>
             ))}
             <div className="pt-6 mt-2 border-t border-bone-200/10">
+              <div className="flex items-center justify-between py-3 mb-2">
+                <span className="text-sm tracking-[0.15em] uppercase text-bone-200/65">Theme</span>
+                <ThemeToggle />
+              </div>
               {user ? (
                 <>
                   <Link
