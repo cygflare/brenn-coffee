@@ -28,15 +28,15 @@ export function Footer() {
               <Image
                 src="/brand/svg/brenn-wordmark-color.svg"
                 alt="Brenn"
-                width={400}
-                height={80}
+                width={160}
+                height={70}
                 className="h-8 w-auto hidden dark:block"
               />
               <Image
                 src="/brand/svg/brenn-wordmark-color-light.svg"
                 alt="Brenn"
-                width={400}
-                height={80}
+                width={160}
+                height={70}
                 className="h-8 w-auto block dark:hidden"
               />
             </Link>

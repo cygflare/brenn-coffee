@@ -64,8 +64,8 @@ export function Header({ user }: { user: AuthUser | null }) {
             <Image
               src="/brand/svg/brenn-wordmark-color.svg"
               alt="Brenn"
-              width={400}
-              height={80}
+              width={160}
+              height={70}
               priority
               className="h-9 w-auto hidden dark:block"
             />
@@ -73,8 +73,8 @@ export function Header({ user }: { user: AuthUser | null }) {
             <Image
               src="/brand/svg/brenn-wordmark-color-light.svg"
               alt="Brenn"
-              width={400}
-              height={80}
+              width={160}
+              height={70}
               priority
               className="h-9 w-auto block dark:hidden"
             />
