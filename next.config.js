@@ -9,7 +9,7 @@ const nextConfig = {
   experimental: {
     serverActions: { bodySizeLimit: '2mb' },
     outputFileTracingIncludes: {
-      '/opengraph-image': ['./app/fonts/**'],
+      // Per-product OG images still generate dynamically and need the brand font
       '/product/*/opengraph-image': ['./app/fonts/**'],
     },
   },

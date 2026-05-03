@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export function Footer() {
@@ -23,12 +24,21 @@ export function Footer() {
       <div className="container-x py-20">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-16">
           <div>
-            <Link href="/" className="inline-flex items-center gap-3 mb-8 group" aria-label="Brenn Coffee — home">
-              <span
-                aria-hidden="true"
-                className="block w-[14px] h-[14px] rounded-full bg-ember drop-shadow-[0_0_8px_rgba(232,85,28,0.45)]"
+            <Link href="/" className="inline-flex items-center mb-8" aria-label="Brenn Coffee — home">
+              <Image
+                src="/brand/svg/brenn-wordmark-color.svg"
+                alt="Brenn"
+                width={400}
+                height={80}
+                className="h-6 w-auto hidden dark:block"
               />
-              <span className="font-serif text-xl tracking-[0.18em] text-bone-100">BRENN</span>
+              <Image
+                src="/brand/svg/brenn-wordmark-color-light.svg"
+                alt="Brenn"
+                width={400}
+                height={80}
+                className="h-6 w-auto block dark:hidden"
+              />
             </Link>
             <h3 className="font-serif text-3xl text-bone-100 mb-4">Stay in the loop.</h3>
             <p className="text-sm text-bone-200/60 leading-relaxed mb-6 max-w-md">

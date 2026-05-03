@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Search, User as UserIcon, ShoppingBag, Menu, X, LogOut, LayoutDashboard } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { useCart } from '@/lib/cart-store';
@@ -58,12 +59,25 @@ export function Header({ user }: { user: AuthUser | null }) {
         }`}
       >
         <div className="container-x flex items-center justify-between py-4">
-          <Link href="/" className="flex items-center gap-3 group" aria-label="Brenn Coffee — home">
-            <span
-              aria-hidden="true"
-              className="block w-[18px] h-[18px] rounded-full bg-ember transition-[filter] duration-300 drop-shadow-[0_0_10px_rgba(232,85,28,0.55)] group-hover:drop-shadow-[0_0_16px_rgba(232,85,28,0.8)]"
+          <Link href="/" className="flex items-center group" aria-label="Brenn Coffee — home">
+            {/* Dark theme (bone wordmark on charcoal bg) */}
+            <Image
+              src="/brand/svg/brenn-wordmark-color.svg"
+              alt="Brenn"
+              width={400}
+              height={80}
+              priority
+              className="h-7 w-auto hidden dark:block"
             />
-            <span className="font-serif text-2xl tracking-[0.18em] text-bone-100">BRENN</span>
+            {/* Light theme (ink wordmark on paper bg) */}
+            <Image
+              src="/brand/svg/brenn-wordmark-color-light.svg"
+              alt="Brenn"
+              width={400}
+              height={80}
+              priority
+              className="h-7 w-auto block dark:hidden"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-7">
