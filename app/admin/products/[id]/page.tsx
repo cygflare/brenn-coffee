@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Trash2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { adminDb } from '@/lib/auth';
 import { ProductForm } from '../ProductForm';
-import { updateProductAction, deleteProductAction } from '../actions';
+import { updateProductAction } from '../actions';
+import { DeleteForm } from './DeleteForm';
 
 export const metadata = { title: 'Edit product', robots: { index: false, follow: false } };
 
@@ -80,19 +81,3 @@ export default async function EditProductPage({ params }: { params: { id: string
   );
 }
 
-function DeleteForm({ id, name }: { id: string; name: string }) {
-  return (
-    <form action={deleteProductAction.bind(null, id)}>
-      <button
-        type="submit"
-        className="text-xs tracking-[0.15em] uppercase text-bone-200/40 hover:text-red-400 inline-flex items-center gap-1.5 transition-colors"
-        onClick={(e) => {
-          if (!confirm(`Delete "${name}"? This cannot be undone.`)) e.preventDefault();
-        }}
-      >
-        <Trash2 size={12} />
-        Delete
-      </button>
-    </form>
-  );
-}
