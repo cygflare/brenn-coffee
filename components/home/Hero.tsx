@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export function Hero() {
@@ -58,9 +59,18 @@ export function Hero() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-        className="relative h-[400px] lg:h-[540px] flex items-center justify-center"
+        className="relative h-[400px] lg:h-[600px] overflow-hidden"
       >
-        <BagIllustration />
+        <Image
+          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=85"
+          alt="Espresso pouring into a white cup"
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 45vw"
+          className="object-cover"
+        />
+        {/* subtle vignette to blend with the page */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-ink-900/40 via-transparent to-transparent pointer-events-none" />
       </motion.div>
     </section>
   );
@@ -77,102 +87,3 @@ function Stat({ num, label }: { num: string; label: string }) {
   );
 }
 
-function BagIllustration() {
-  return (
-    <svg viewBox="0 0 400 540" className="w-full h-full max-w-md">
-      <defs>
-        <linearGradient id="bag-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#1a1614" />
-          <stop offset="100%" stopColor="#0d0a09" />
-        </linearGradient>
-        <linearGradient id="bag-shine" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-          <stop offset="50%" stopColor="#ffffff" stopOpacity="0.04" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <ellipse cx="200" cy="510" rx="140" ry="14" fill="#000" opacity="0.5" />
-      <path
-        d="M 100 120 L 110 100 L 290 100 L 300 120 L 310 500 L 90 500 Z"
-        fill="url(#bag-grad)"
-        stroke="#E8551C"
-        strokeWidth="0.5"
-        strokeOpacity="0.3"
-      />
-      <path
-        d="M 100 120 L 110 100 L 290 100 L 300 120 L 310 500 L 90 500 Z"
-        fill="url(#bag-shine)"
-      />
-      <rect x="110" y="100" width="180" height="20" fill="#0a0908" />
-      <line x1="120" y1="110" x2="280" y2="110" stroke="#E8551C" strokeOpacity="0.4" />
-      <circle cx="200" cy="200" r="3" fill="#E8551C" />
-      <text
-        x="200"
-        y="240"
-        textAnchor="middle"
-        fill="#E8551C"
-        fontFamily="serif"
-        fontSize="11"
-        letterSpacing="4"
-      >
-        SINGLE ORIGIN
-      </text>
-      <text
-        x="200"
-        y="290"
-        textAnchor="middle"
-        fill="#f5efe2"
-        fontFamily="serif"
-        fontSize="32"
-        fontStyle="italic"
-      >
-        Yirgacheffe
-      </text>
-      <text
-        x="200"
-        y="320"
-        textAnchor="middle"
-        fill="#e8e2d6"
-        fontFamily="serif"
-        fontSize="14"
-        letterSpacing="3"
-      >
-        ETHIOPIA
-      </text>
-      <line x1="150" y1="345" x2="250" y2="345" stroke="#E8551C" strokeOpacity="0.5" />
-      <text
-        x="200"
-        y="375"
-        textAnchor="middle"
-        fill="#e8e2d6"
-        fontSize="10"
-        letterSpacing="2"
-        opacity="0.6"
-      >
-        JASMINE · BERGAMOT · PEACH
-      </text>
-      <text
-        x="200"
-        y="430"
-        textAnchor="middle"
-        fill="#E8551C"
-        fontFamily="serif"
-        fontSize="14"
-        fontStyle="italic"
-      >
-        light roast
-      </text>
-      <text
-        x="200"
-        y="475"
-        textAnchor="middle"
-        fill="#e8e2d6"
-        fontSize="9"
-        letterSpacing="3"
-        opacity="0.4"
-      >
-        250G · WHOLE BEAN
-      </text>
-    </svg>
-  );
-}

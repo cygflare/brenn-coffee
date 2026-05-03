@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import type { Product } from '@/lib/types';
 import { formatPrice, roastLabel } from '@/lib/utils';
@@ -28,7 +29,17 @@ export function ProductCard({ product }: { product: Product }) {
               {tag}
             </span>
           )}
-          <BagSvg product={product} />
+          {product.hero_image_url ? (
+            <Image
+              src={product.hero_image_url}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <BagSvg product={product} />
+          )}
         </div>
 
         <div className="p-6">

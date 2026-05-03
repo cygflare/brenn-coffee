@@ -1,39 +1,21 @@
+import Image from 'next/image';
+
 export function StorySection() {
   return (
     <section className="container-x py-24 lg:py-32 border-t border-bone-200/8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        <div className="aspect-[4/5] bg-ink-600 border border-bone-200/8 relative overflow-hidden flex items-center justify-center">
-          <svg viewBox="0 0 400 500" className="w-full h-full">
-            <defs>
-              <radialGradient id="story-glow" cx="50%" cy="40%">
-                <stop offset="0%" stopColor="#E8551C" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="#E8551C" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="400" height="500" fill="#0d0a09" />
-            <circle cx="200" cy="200" r="180" fill="url(#story-glow)" />
-            <g opacity="0.7">
-              <ellipse cx="180" cy="240" rx="22" ry="32" fill="#3a2818" transform="rotate(-15 180 240)" />
-              <ellipse cx="220" cy="260" rx="22" ry="32" fill="#2a1d12" transform="rotate(25 220 260)" />
-              <ellipse cx="200" cy="290" rx="22" ry="32" fill="#3a2818" transform="rotate(5 200 290)" />
-              <ellipse cx="160" cy="290" rx="20" ry="28" fill="#2a1d12" transform="rotate(40 160 290)" />
-              <ellipse cx="240" cy="220" rx="20" ry="28" fill="#3a2818" transform="rotate(-30 240 220)" />
-              <ellipse cx="150" cy="200" rx="18" ry="26" fill="#2a1d12" transform="rotate(20 150 200)" />
-              <ellipse cx="250" cy="290" rx="18" ry="26" fill="#3a2818" transform="rotate(-10 250 290)" />
-            </g>
-            <text
-              x="200"
-              y="430"
-              textAnchor="middle"
-              fill="#E8551C"
-              fontFamily="serif"
-              fontSize="13"
-              letterSpacing="4"
-              opacity="0.7"
-            >
-              EST. MMXXIV
-            </text>
-          </svg>
+        <div className="aspect-[4/5] bg-ink-600 border border-bone-200/8 relative overflow-hidden">
+          <Image
+            src="https://images.unsplash.com/photo-1442550528053-c431ecb55509?w=1000&q=85"
+            alt="Roasted coffee beans, close-up"
+            fill
+            sizes="(max-width: 1024px) 100vw, 45vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-900/60 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute bottom-6 left-6 text-[11px] tracking-[0.25em] uppercase text-ember/90">
+            Est. MMXXVI
+          </div>
         </div>
 
         <div>
