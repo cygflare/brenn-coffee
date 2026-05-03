@@ -30,14 +30,14 @@ export function Footer() {
                 alt="Brenn"
                 width={400}
                 height={80}
-                className="h-6 w-auto hidden dark:block"
+                className="h-8 w-auto hidden dark:block"
               />
               <Image
                 src="/brand/svg/brenn-wordmark-color-light.svg"
                 alt="Brenn"
                 width={400}
                 height={80}
-                className="h-6 w-auto block dark:hidden"
+                className="h-8 w-auto block dark:hidden"
               />
             </Link>
             <h3 className="font-serif text-3xl text-bone-100 mb-4">Stay in the loop.</h3>

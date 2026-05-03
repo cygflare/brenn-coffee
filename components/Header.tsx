@@ -67,7 +67,7 @@ export function Header({ user }: { user: AuthUser | null }) {
               width={400}
               height={80}
               priority
-              className="h-7 w-auto hidden dark:block"
+              className="h-9 w-auto hidden dark:block"
             />
             {/* Light theme (ink wordmark on paper bg) */}
             <Image
@@ -76,7 +76,7 @@ export function Header({ user }: { user: AuthUser | null }) {
               width={400}
               height={80}
               priority
-              className="h-7 w-auto block dark:hidden"
+              className="h-9 w-auto block dark:hidden"
             />
           </Link>
 
@@ -181,7 +181,7 @@ export function Header({ user }: { user: AuthUser | null }) {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-ink-900 pt-20 px-5 md:hidden overflow-y-auto">
+        <div className="fixed inset-0 z-40 bg-ink-900 pt-24 px-4 sm:px-6 md:hidden overflow-y-auto">
           <nav className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <Link

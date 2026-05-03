@@ -71,6 +71,10 @@ export function ProductCard({ product }: { product: Product }) {
 }
 
 function BagSvg({ product }: { product: Product }) {
+  // Coffee-bag illustration: bag body stays dark in both themes
+  // (real coffee bags are dark — this is brand imagery, not surface UI).
+  // Text + accent colors are theme-independent because they sit ON the
+  // dark bag, not on the page background.
   return (
     <svg viewBox="0 0 200 250" className="w-3/5 h-3/5 transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-2">
       <path
@@ -80,38 +84,14 @@ function BagSvg({ product }: { product: Product }) {
         strokeWidth="0.5"
         strokeOpacity="0.4"
       />
-      <text
-        x="100"
-        y="120"
-        textAnchor="middle"
-        fill="#E8551C"
-        fontFamily="serif"
-        fontSize="9"
-        letterSpacing="3"
-      >
+      <text x="100" y="120" textAnchor="middle" fill="#E8551C" fontFamily="serif" fontSize="9" letterSpacing="3">
         {(product.country ?? '').toUpperCase()}
       </text>
-      <text
-        x="100"
-        y="150"
-        textAnchor="middle"
-        fill="#f5efe2"
-        fontFamily="serif"
-        fontSize="20"
-        fontStyle="italic"
-      >
+      <text x="100" y="150" textAnchor="middle" fill="#f5efe2" fontFamily="serif" fontSize="20" fontStyle="italic">
         {product.name}
       </text>
       <line x1="70" y1="170" x2="130" y2="170" stroke="#E8551C" strokeOpacity="0.5" />
-      <text
-        x="100"
-        y="195"
-        textAnchor="middle"
-        fill="#e8e2d6"
-        fontSize="7"
-        opacity="0.6"
-        letterSpacing="2"
-      >
+      <text x="100" y="195" textAnchor="middle" fill="#e8e2d6" fontSize="7" opacity="0.6" letterSpacing="2">
         {roastLabel(product.roast_level).toUpperCase()} ROAST
       </text>
     </svg>
