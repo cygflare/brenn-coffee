@@ -64,7 +64,7 @@ export function BrewingMethods() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="container-x py-24 lg:py-32 border-t border-bone-200/8">
+    <section className="container-x py-16 lg:py-24 border-t border-bone-200/8">
       <div className="mb-14">
         <div className="eyebrow mb-4">The ritual</div>
         <h2 className="font-serif text-4xl lg:text-6xl text-bone-100 leading-none">

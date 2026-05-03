@@ -2,7 +2,7 @@ import type { Product } from '@/lib/types';
 
 export function OriginSection({ product }: { product: Product }) {
   return (
-    <section className="container-x py-20 lg:py-28 border-t border-bone-200/8">
+    <section className="container-x py-14 lg:py-20 border-t border-bone-200/8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div className="aspect-square bg-ink-700 border border-bone-200/8 p-10 lg:p-12">
           <svg viewBox="0 0 400 400" className="w-full h-full">

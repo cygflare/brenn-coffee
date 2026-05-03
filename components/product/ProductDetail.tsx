@@ -242,7 +242,7 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
 
       {/* Tasting profile */}
       {product.flavor_notes.length > 0 && (
-        <section className="container-x py-20 lg:py-28 border-t border-bone-200/8">
+        <section className="container-x py-14 lg:py-20 border-t border-bone-200/8">
           <div className="eyebrow mb-4">Tasting profile</div>
           <h2 className="font-serif text-4xl lg:text-6xl text-bone-100 leading-none mb-16">
             A spectrum of <em className="italic text-ember">flavor</em>, mapped.

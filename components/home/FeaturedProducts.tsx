@@ -4,7 +4,7 @@ import type { Product } from '@/lib/types';
 
 export function FeaturedProducts({ products }: { products: Product[] }) {
   return (
-    <section className="container-x py-24 lg:py-32 border-t border-bone-200/8">
+    <section className="container-x py-16 lg:py-24 border-t border-bone-200/8">
       <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-14">
         <div>
           <div className="eyebrow mb-4">The collection</div>

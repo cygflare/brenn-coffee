@@ -58,7 +58,7 @@ export function BrewRecommendations({ product }: { product: Product }) {
   if (sorted[1] && sorted[1].score === 'best') sorted[1].score = 'great';
 
   return (
-    <section className="container-x py-20 lg:py-28 border-t border-bone-200/8">
+    <section className="container-x py-14 lg:py-20 border-t border-bone-200/8">
       <div className="eyebrow mb-4">Brewing recommendations</div>
       <h2 className="font-serif text-4xl lg:text-6xl text-bone-100 leading-none mb-14">
         Best <em className="italic text-ember">poured</em> like this.

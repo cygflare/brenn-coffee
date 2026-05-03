@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export function StorySection() {
   return (
-    <section className="container-x py-24 lg:py-32 border-t border-bone-200/8">
+    <section className="container-x py-16 lg:py-24 border-t border-bone-200/8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div className="aspect-[4/5] bg-ink-600 border border-bone-200/8 relative overflow-hidden">
           <Image
