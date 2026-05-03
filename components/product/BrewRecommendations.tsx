@@ -58,7 +58,7 @@ export function BrewRecommendations({ product }: { product: Product }) {
   if (sorted[1] && sorted[1].score === 'best') sorted[1].score = 'great';
 
   return (
-    <section className="container-x py-14 lg:py-20 border-t border-bone-200/8">
+    <section className="container-x py-14 lg:py-20 border-t border-bone-200/15">
       <div className="eyebrow mb-4">Brewing recommendations</div>
       <h2 className="font-serif text-4xl lg:text-6xl text-bone-100 leading-none mb-14">
         Best <em className="italic text-ember">poured</em> like this.
@@ -71,7 +71,7 @@ export function BrewRecommendations({ product }: { product: Product }) {
             className={`relative p-7 transition-all hover:-translate-y-1 ${
               brew.score === 'best'
                 ? 'border border-ember/50 bg-gradient-to-b from-ember/[0.06] to-transparent'
-                : 'border border-bone-200/8 bg-ink-700 hover:border-ember/40'
+                : 'border border-bone-200/15 bg-ink-700 hover:border-ember/40'
             }`}
           >
             {brew.score === 'best' && (
@@ -86,17 +86,17 @@ export function BrewRecommendations({ product }: { product: Product }) {
             )}
 
             <div className="font-serif text-2xl text-bone-100 mb-2">{brew.name}</div>
-            <p className="text-xs text-bone-200/55 leading-relaxed mb-4">{brew.detail}</p>
+            <p className="text-xs text-bone-200/70 leading-relaxed mb-4">{brew.detail}</p>
 
-            <div className="pt-4 border-t border-bone-200/8 space-y-1.5 text-xs">
+            <div className="pt-4 border-t border-bone-200/15 space-y-1.5 text-xs">
               <div className="flex justify-between">
-                <span className="text-bone-200/45 tracking-[0.1em] uppercase text-[10px]">
+                <span className="text-bone-200/65 tracking-[0.1em] uppercase text-[10px]">
                   Ratio
                 </span>
                 <span className="text-ember font-serif italic">{brew.ratio}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-bone-200/45 tracking-[0.1em] uppercase text-[10px]">
+                <span className="text-bone-200/65 tracking-[0.1em] uppercase text-[10px]">
                   Time
                 </span>
                 <span className="text-ember font-serif italic">{brew.time}</span>

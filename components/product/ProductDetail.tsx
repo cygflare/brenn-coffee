@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useCart } from '@/lib/cart-store';
 import {
   GRIND_LABELS,
@@ -74,7 +75,7 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
   return (
     <>
       {/* Breadcrumb */}
-      <div className="container-x py-6 text-xs tracking-[0.1em] text-bone-200/45">
+      <div className="container-x py-6 text-xs tracking-[0.1em] text-bone-200/65">
         <Link href="/shop" className="hover:text-ember">
           Shop
         </Link>{' '}
@@ -85,9 +86,22 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
       <section className="container-x grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 pb-20">
         {/* Gallery */}
         <div className="lg:sticky lg:top-24 self-start">
-          <div className="aspect-[4/5] bg-gradient-to-b from-ink-500 to-ink-900 border border-bone-200/8 relative flex items-center justify-center overflow-hidden">
-            <div className="absolute w-3/5 h-3/5 bg-ember/20 blur-3xl pointer-events-none" />
-            <ProductBag product={product} />
+          <div className="aspect-[4/5] bg-gradient-to-b from-ink-500 to-ink-900 border border-bone-200/15 relative flex items-center justify-center overflow-hidden">
+            {product.hero_image_url ? (
+              <Image
+                src={product.hero_image_url}
+                alt={product.name}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            ) : (
+              <>
+                <div className="absolute w-3/5 h-3/5 bg-ember/20 blur-3xl pointer-events-none" />
+                <ProductBag product={product} />
+              </>
+            )}
           </div>
         </div>
 
@@ -100,7 +114,7 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
             </div>
           )}
 
-          <div className="text-[11px] tracking-[0.3em] uppercase text-bone-200/50 mb-4">
+          <div className="text-[11px] tracking-[0.3em] uppercase text-bone-200/70 mb-4">
             {product.origin}
           </div>
 
@@ -109,22 +123,22 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
           </h1>
 
           {product.tagline && (
-            <div className="font-serif italic text-xl lg:text-2xl text-bone-200/70 mb-7">
+            <div className="font-serif italic text-xl lg:text-2xl text-bone-200/85 mb-7">
               {product.tagline}
             </div>
           )}
 
-          <div className="flex items-baseline gap-4 mb-8 pb-8 border-b border-bone-200/10">
+          <div className="flex items-baseline gap-4 mb-8 pb-8 border-b border-bone-200/15">
             <span className="font-serif text-4xl text-bone-100">
               {formatPrice(unitPrice)}
             </span>
-            <span className="text-xs tracking-[0.15em] uppercase text-bone-200/50">
+            <span className="text-xs tracking-[0.15em] uppercase text-bone-200/65">
               / {SIZE_LABELS[selectedSize]} {GRIND_LABELS[selectedGrind].toLowerCase()}
             </span>
           </div>
 
           {/* Meta grid */}
-          <div className="grid grid-cols-3 border border-bone-200/8 mb-9">
+          <div className="grid grid-cols-3 border border-bone-200/15 mb-9">
             <MetaCell label="Roast level" value={roastLabel(product.roast_level)} />
             <MetaCell label="Process" value={product.process ?? '—'} />
             <MetaCell
@@ -200,7 +214,7 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
             </div>
             <div className="flex-1">
               <div className="text-sm text-bone-100 font-medium mb-1">Subscribe &amp; save</div>
-              <div className="text-xs text-bone-200/60">
+              <div className="text-xs text-bone-200/75">
                 Fresh bag every 2 weeks. Skip or cancel anytime.
               </div>
             </div>
@@ -232,7 +246,7 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
           </div>
 
           {/* Perks */}
-          <div className="grid grid-cols-3 gap-4 pt-8 border-t border-bone-200/8">
+          <div className="grid grid-cols-3 gap-4 pt-8 border-t border-bone-200/15">
             <Perk icon={Truck} label="Free UK shipping over £30" />
             <Perk icon={Clock} label="Roasted to order in 48hr" />
             <Perk icon={Leaf} label="Direct trade & ethical" />
@@ -242,7 +256,7 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
 
       {/* Tasting profile */}
       {product.flavor_notes.length > 0 && (
-        <section className="container-x py-14 lg:py-20 border-t border-bone-200/8">
+        <section className="container-x py-14 lg:py-20 border-t border-bone-200/15">
           <div className="eyebrow mb-4">Tasting profile</div>
           <h2 className="font-serif text-4xl lg:text-6xl text-bone-100 leading-none mb-16">
             A spectrum of <em className="italic text-ember">flavor</em>, mapped.
@@ -262,8 +276,8 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
 
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
-    <div className="px-5 py-4 border-r last:border-r-0 border-bone-200/8">
-      <div className="text-[10px] tracking-[0.2em] uppercase text-bone-200/45 mb-1.5">
+    <div className="px-5 py-4 border-r last:border-r-0 border-bone-200/15">
+      <div className="text-[10px] tracking-[0.2em] uppercase text-bone-200/65 mb-1.5">
         {label}
       </div>
       <div className="font-serif text-lg text-bone-100">{value}</div>
@@ -279,7 +293,7 @@ function Perk({
   label: string;
 }) {
   return (
-    <div className="flex items-start gap-2 text-xs text-bone-200/60 leading-relaxed">
+    <div className="flex items-start gap-2 text-xs text-bone-200/75 leading-relaxed">
       <Icon size={14} className="text-ember flex-shrink-0 mt-0.5" />
       <span>{label}</span>
     </div>

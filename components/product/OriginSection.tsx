@@ -2,9 +2,9 @@ import type { Product } from '@/lib/types';
 
 export function OriginSection({ product }: { product: Product }) {
   return (
-    <section className="container-x py-14 lg:py-20 border-t border-bone-200/8">
+    <section className="container-x py-14 lg:py-20 border-t border-bone-200/15">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        <div className="aspect-square bg-ink-700 border border-bone-200/8 p-10 lg:p-12">
+        <div className="aspect-square bg-ink-700 border border-bone-200/15 p-10 lg:p-12">
           <svg viewBox="0 0 400 400" className="w-full h-full">
             <defs>
               <radialGradient id="origin-glow" cx="50%" cy="50%">
@@ -79,7 +79,7 @@ export function OriginSection({ product }: { product: Product }) {
             <p className="text-bone-200/70 leading-[1.8] mb-5">{product.description}</p>
           )}
 
-          <div className="grid grid-cols-2 gap-6 mt-10 pt-8 border-t border-bone-200/8">
+          <div className="grid grid-cols-2 gap-6 mt-10 pt-8 border-t border-bone-200/15">
             {product.farm_name && (
               <Stat label="Farm" value={product.farm_name} />
             )}
@@ -105,7 +105,7 @@ export function OriginSection({ product }: { product: Product }) {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-[10px] tracking-[0.2em] uppercase text-bone-200/50 mb-1.5">
+      <div className="text-[10px] tracking-[0.2em] uppercase text-bone-200/70 mb-1.5">
         {label}
       </div>
       <div className="font-serif text-lg lg:text-xl italic text-ember">{value}</div>
