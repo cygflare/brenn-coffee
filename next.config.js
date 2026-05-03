@@ -6,7 +6,13 @@ const nextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
-  experimental: { serverActions: { bodySizeLimit: '2mb' } },
+  experimental: {
+    serverActions: { bodySizeLimit: '2mb' },
+    outputFileTracingIncludes: {
+      '/opengraph-image': ['./app/fonts/**'],
+      '/product/*/opengraph-image': ['./app/fonts/**'],
+    },
+  },
 };
 
 module.exports = nextConfig;

@@ -23,9 +23,11 @@ export function roastLabel(level: number): string {
   return ['Light', 'Light-medium', 'Medium', 'Medium-dark', 'Dark'][level - 1] ?? 'Medium';
 }
 
-/** Slugify a string for URLs */
+/** Slugify a string for URLs — handles Unicode diacritics (Café → cafe) */
 export function slugify(text: string): string {
   return text
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');

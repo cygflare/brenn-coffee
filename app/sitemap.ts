@@ -3,13 +3,13 @@ import { createClient } from '@/lib/supabase/server';
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/+$/, '');
 
-export const revalidate = 3600;
+export const revalidate = 600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createClient();
   const { data: products } = await supabase
     .from('products')
-    .select('slug, updated_at')
+    .select('slug, updated_at, hero_image_url')
     .eq('is_active', true);
 
   const productUrls: MetadataRoute.Sitemap = (products ?? []).map((p) => ({
@@ -17,6 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: p.updated_at ? new Date(p.updated_at) : new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,
+    ...(p.hero_image_url ? { images: [p.hero_image_url] } : {}),
   }));
 
   const now = new Date();

@@ -1,24 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" fill="none" role="img" aria-label="Brenn Coffee">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" fill="none" role="img" aria-label="Brenn Coffee">
   <title>Brenn Coffee</title>
-  <!-- flame mark -->
-  <path
-    d="M44 4
-       C48 16, 60 26, 66 40
-       C72 56, 70 76, 56 88
-       C46 96, 30 96, 20 86
-       C10 74, 10 56, 18 42
-       C24 30, 32 22, 38 12
-       C40 8, 42 6, 44 4 Z"
-    fill="#E8551C"
-  />
-  <!-- wordmark — Cormorant Garamond falls back to system serif -->
+  <circle cx="44" cy="50" r="34" fill="#E8551C"/>
   <text
     x="100"
     y="72"
     font-family="'Cormorant Garamond', 'Garamond', 'Times New Roman', serif"
     font-size="68"
     font-weight="500"
-    letter-spacing="2"
+    letter-spacing="3"
     fill="#F5F1E8"
   >BRENN</text>
 </svg>

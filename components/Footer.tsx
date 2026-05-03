@@ -24,15 +24,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-16">
           <div>
             <Link href="/" className="inline-flex items-center gap-3 mb-8 group" aria-label="Brenn Coffee — home">
-              <svg
-                viewBox="0 0 80 100"
-                className="w-4 h-[20px] text-ember"
-                fill="currentColor"
+              <span
                 aria-hidden="true"
-              >
-                <path d="M44 4 C48 16, 60 26, 66 40 C72 56, 70 76, 56 88 C46 96, 30 96, 20 86 C10 74, 10 56, 18 42 C24 30, 32 22, 38 12 C40 8, 42 6, 44 4 Z" />
-              </svg>
-              <span className="font-serif text-xl tracking-[0.08em] text-bone-100">BRENN</span>
+                className="block w-[14px] h-[14px] rounded-full bg-ember drop-shadow-[0_0_8px_rgba(232,85,28,0.45)]"
+              />
+              <span className="font-serif text-xl tracking-[0.18em] text-bone-100">BRENN</span>
             </Link>
             <h3 className="font-serif text-3xl text-bone-100 mb-4">Stay in the loop.</h3>
             <p className="text-sm text-bone-200/60 leading-relaxed mb-6 max-w-md">

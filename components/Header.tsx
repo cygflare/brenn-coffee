@@ -45,15 +45,11 @@ export function Header() {
       >
         <div className="container-x flex items-center justify-between py-4">
           <Link href="/" className="flex items-center gap-3 group" aria-label="Brenn Coffee — home">
-            <svg
-              viewBox="0 0 80 100"
-              className="w-5 h-[26px] text-ember transition-[filter] duration-300 drop-shadow-[0_0_8px_rgba(232,85,28,0.45)] group-hover:drop-shadow-[0_0_14px_rgba(232,85,28,0.7)]"
-              fill="currentColor"
+            <span
               aria-hidden="true"
-            >
-              <path d="M44 4 C48 16, 60 26, 66 40 C72 56, 70 76, 56 88 C46 96, 30 96, 20 86 C10 74, 10 56, 18 42 C24 30, 32 22, 38 12 C40 8, 42 6, 44 4 Z" />
-            </svg>
-            <span className="font-serif text-2xl tracking-[0.08em] text-bone-100">BRENN</span>
+              className="block w-[18px] h-[18px] rounded-full bg-ember transition-[filter] duration-300 drop-shadow-[0_0_10px_rgba(232,85,28,0.55)] group-hover:drop-shadow-[0_0_16px_rgba(232,85,28,0.8)]"
+            />
+            <span className="font-serif text-2xl tracking-[0.18em] text-bone-100">BRENN</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-7">

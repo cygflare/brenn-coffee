@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { ProductDetail } from '@/components/product/ProductDetail';
 import type { ProductWithVariants } from '@/lib/types';
+import { roastLabel } from '@/lib/utils';
 
 export const revalidate = 60;
 
@@ -16,7 +17,7 @@ export async function generateMetadata({
   const supabase = createClient();
   const { data: product } = await supabase
     .from('products')
-    .select('name, tagline, description, hero_image_url, flavor_notes, origin')
+    .select('name, tagline, description, origin')
     .eq('slug', params.slug)
     .single();
 
@@ -28,7 +29,6 @@ export async function generateMetadata({
     `${product.name} — single-origin coffee from ${product.origin}.`;
 
   const canonical = `/product/${params.slug}`;
-  const images = product.hero_image_url ? [product.hero_image_url] : undefined;
 
   return {
     title: product.name,
@@ -39,13 +39,11 @@ export async function generateMetadata({
       title: `${product.name} · Brenn Coffee`,
       description,
       url: canonical,
-      images,
     },
     twitter: {
       card: 'summary_large_image',
       title: `${product.name} · Brenn Coffee`,
       description,
-      images,
     },
   };
 }
@@ -64,6 +62,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
   const productWithVariants = product as ProductWithVariants;
   const productJsonLd = buildProductJsonLd(productWithVariants);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(productWithVariants);
 
   return (
     <>
@@ -71,9 +70,40 @@ export default async function ProductPage({ params }: { params: { slug: string }
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <ProductDetail product={productWithVariants} />
     </>
   );
+}
+
+function buildBreadcrumbJsonLd(product: ProductWithVariants) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Shop',
+        item: `${SITE_URL}/shop`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.name,
+        item: `${SITE_URL}/product/${product.slug}`,
+      },
+    ],
+  };
 }
 
 function buildProductJsonLd(product: ProductWithVariants) {
@@ -98,6 +128,14 @@ function buildProductJsonLd(product: ProductWithVariants) {
       itemCondition: 'https://schema.org/NewCondition',
     }));
 
+  const additionalProperty: Array<{ '@type': 'PropertyValue'; name: string; value: string | number }> = [];
+  if (product.process) additionalProperty.push({ '@type': 'PropertyValue', name: 'Process', value: product.process });
+  if (product.altitude_m) additionalProperty.push({ '@type': 'PropertyValue', name: 'Altitude', value: `${product.altitude_m}m` });
+  if (product.variety) additionalProperty.push({ '@type': 'PropertyValue', name: 'Variety', value: product.variety });
+  if (product.cupping_score) additionalProperty.push({ '@type': 'PropertyValue', name: 'Cupping score', value: product.cupping_score });
+  if (product.farm_name) additionalProperty.push({ '@type': 'PropertyValue', name: 'Farm', value: product.farm_name });
+  if (product.roast_level) additionalProperty.push({ '@type': 'PropertyValue', name: 'Roast level', value: roastLabel(product.roast_level) });
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -110,10 +148,14 @@ function buildProductJsonLd(product: ProductWithVariants) {
     url,
     ...(images.length > 0 && { image: images }),
     brand: { '@type': 'Brand', name: 'Brenn Coffee' },
+    manufacturer: { '@type': 'Organization', name: 'Brenn Coffee' },
     category: 'Specialty Coffee',
+    ...(product.country && { countryOfOrigin: product.country }),
+    ...(product.created_at && { releaseDate: product.created_at.split('T')[0] }),
     ...(product.flavor_notes?.length
       ? { keywords: product.flavor_notes.join(', ') }
       : {}),
+    ...(additionalProperty.length > 0 && { additionalProperty }),
     offers:
       offers.length > 0
         ? {
