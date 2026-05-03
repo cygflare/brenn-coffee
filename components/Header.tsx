@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { Search, User, ShoppingBag, Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Search, User as UserIcon, ShoppingBag, Menu, X, LogOut, LayoutDashboard } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { useCart } from '@/lib/cart-store';
+import type { AuthUser } from '@/lib/auth';
 
 const NAV_LINKS = [
   { label: 'Shop', href: '/shop' },
@@ -13,14 +14,15 @@ const NAV_LINKS = [
   { label: 'About', href: '/about' },
 ];
 
-export function Header() {
+export function Header({ user }: { user: AuthUser | null }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
   const { toggleCart, getItemCount } = useCart();
   const [itemCount, setItemCount] = useState(0);
+  const accountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Hydrate the cart count after mount (avoid SSR mismatch)
     setItemCount(getItemCount());
     const unsub = useCart.subscribe((state) => {
       setItemCount(state.items.reduce((s, i) => s + i.quantity, 0));
@@ -33,6 +35,17 @@ export function Header() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!accountOpen) return;
+    function onClick(e: MouseEvent) {
+      if (accountRef.current && !accountRef.current.contains(e.target as Node)) {
+        setAccountOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, [accountOpen]);
 
   return (
     <>
@@ -71,13 +84,63 @@ export function Header() {
             >
               <Search size={14} />
             </button>
-            <Link
-              href="/account"
-              aria-label="Account"
-              className="hidden sm:flex w-9 h-9 rounded-full border border-bone-200/15 items-center justify-center text-bone-200 hover:border-ember hover:text-ember transition-colors"
-            >
-              <User size={14} />
-            </Link>
+
+            {user ? (
+              <div className="relative hidden sm:block" ref={accountRef}>
+                <button
+                  onClick={() => setAccountOpen((o) => !o)}
+                  aria-label="Account menu"
+                  className="w-9 h-9 rounded-full border border-bone-200/15 flex items-center justify-center text-bone-200 hover:border-ember hover:text-ember transition-colors"
+                >
+                  <UserIcon size={14} />
+                </button>
+
+                {accountOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-ink-700 border border-bone-200/15 shadow-xl py-1.5 z-50">
+                    <div className="px-4 py-3 border-b border-bone-200/10">
+                      <div className="text-xs text-bone-200/50 mb-0.5">Signed in as</div>
+                      <div className="text-sm text-bone-100 truncate">{user.email}</div>
+                    </div>
+                    <Link
+                      href="/account"
+                      className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-bone-200 hover:bg-ink-600 hover:text-ember"
+                      onClick={() => setAccountOpen(false)}
+                    >
+                      <UserIcon size={14} />
+                      My account
+                    </Link>
+                    {user.role === 'admin' && (
+                      <Link
+                        href="/admin"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-ember hover:bg-ink-600"
+                        onClick={() => setAccountOpen(false)}
+                      >
+                        <LayoutDashboard size={14} />
+                        Admin dashboard
+                      </Link>
+                    )}
+                    <form action="/auth/sign-out" method="POST">
+                      <button
+                        type="submit"
+                        className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-bone-200/80 hover:bg-ink-600 hover:text-ember text-left"
+                      >
+                        <LogOut size={14} />
+                        Sign out
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/sign-in"
+                aria-label="Sign in"
+                className="hidden sm:flex w-9 h-9 rounded-full border border-bone-200/15 items-center justify-center text-bone-200 hover:border-ember hover:text-ember transition-colors"
+              >
+                <UserIcon size={14} />
+              </Link>
+            )}
+
             <button
               onClick={toggleCart}
               aria-label="Cart"
@@ -101,9 +164,8 @@ export function Header() {
         </div>
       </header>
 
-      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-ink-900 pt-20 px-5 md:hidden">
+        <div className="fixed inset-0 z-40 bg-ink-900 pt-20 px-5 md:hidden overflow-y-auto">
           <nav className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <Link
@@ -115,6 +177,53 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <div className="pt-6 mt-2 border-t border-bone-200/10">
+              {user ? (
+                <>
+                  <Link
+                    href="/account"
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-3 text-sm tracking-[0.15em] uppercase text-bone-200/65 hover:text-ember"
+                  >
+                    My account
+                  </Link>
+                  {user.role === 'admin' && (
+                    <Link
+                      href="/admin"
+                      onClick={() => setMobileOpen(false)}
+                      className="block py-3 text-sm tracking-[0.15em] uppercase text-ember"
+                    >
+                      Admin dashboard
+                    </Link>
+                  )}
+                  <form action="/auth/sign-out" method="POST">
+                    <button
+                      type="submit"
+                      className="block py-3 text-sm tracking-[0.15em] uppercase text-bone-200/65 hover:text-ember w-full text-left"
+                    >
+                      Sign out
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/sign-in"
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-3 text-sm tracking-[0.15em] uppercase text-bone-200/65 hover:text-ember"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    href="/sign-up"
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-3 text-sm tracking-[0.15em] uppercase text-ember"
+                  >
+                    Create account
+                  </Link>
+                </>
+              )}
+            </div>
           </nav>
         </div>
       )}

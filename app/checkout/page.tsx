@@ -6,6 +6,7 @@ import { useCart } from '@/lib/cart-store';
 import { GRIND_LABELS, SIZE_LABELS } from '@/lib/types';
 import { formatPrice, calculateShipping, SUBSCRIPTION_DISCOUNT } from '@/lib/utils';
 import { ArrowRight, Loader2 } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 
 export default function CheckoutPage() {
   const { items, getSubtotal } = useCart();
@@ -14,7 +15,14 @@ export default function CheckoutPage() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    // Pre-fill email if signed in
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user?.email) setEmail(user.email);
+    });
+  }, []);
 
   if (!mounted) return null;
 

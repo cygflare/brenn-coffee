@@ -52,10 +52,14 @@ export async function POST(req: NextRequest) {
       const shippingAddress = (session as any).shipping_details?.address ?? {};
       const shippingName = (session as any).shipping_details?.name ?? '';
 
+      // Pull customer_id from metadata (set in /api/checkout when buyer is signed in)
+      const customerId = session.metadata?.customer_id ?? null;
+
       // Create order
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
+          customer_id: customerId,
           email: session.customer_email ?? '',
           status: 'paid',
           subtotal_pence: (session.amount_subtotal ?? 0),

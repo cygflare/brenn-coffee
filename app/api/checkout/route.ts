@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { createAdminClient } from '@/lib/supabase/server';
+import { createAdminClient, createClient } from '@/lib/supabase/server';
 import { calculateShipping, SUBSCRIPTION_DISCOUNT } from '@/lib/utils';
 import type { CartItem } from '@/lib/types';
 
@@ -14,6 +14,14 @@ export async function POST(req: NextRequest) {
     if (!items?.length || !email) {
       return NextResponse.json({ error: 'Missing items or email' }, { status: 400 });
     }
+
+    // If the buyer is signed in, attach their customer_id to the Stripe session
+    // metadata so the webhook can link the order back to them.
+    const userClient = createClient();
+    const {
+      data: { user },
+    } = await userClient.auth.getUser();
+    const customerId = user?.id ?? null;
 
     // Re-fetch product/variant data from DB so we don't trust client prices
     const supabase = createAdminClient();
@@ -92,6 +100,7 @@ export async function POST(req: NextRequest) {
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout`,
       metadata: {
         item_count: items.length.toString(),
+        ...(customerId && { customer_id: customerId }),
         cart_data: JSON.stringify(items.map(i => ({
           v: i.variantId,
           q: i.quantity,
