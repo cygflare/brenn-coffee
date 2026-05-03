@@ -71,7 +71,8 @@ export function FlavorWheel({ product }: { product: Product }) {
                   x={lx}
                   y={ly + 3}
                   textAnchor="middle"
-                  fill={isActive ? '#E8551C' : 'rgba(235,230,221,0.5)'}
+                  fill="currentColor"
+                  className={isActive ? 'text-ember' : 'text-bone-200/65'}
                   fontFamily="serif"
                   fontStyle="italic"
                   fontSize="12"
@@ -143,7 +144,7 @@ export function FlavorWheel({ product }: { product: Product }) {
               className="grid grid-cols-[100px_1fr_30px] gap-4 items-center text-xs tracking-[0.1em] uppercase text-bone-200/70"
             >
               <span>{bar.label}</span>
-              <div className="h-1 bg-bone-200/8 relative">
+              <div className="h-1 bg-bone-200/15 relative">
                 <div
                   className="h-full bg-ember transition-[width] duration-1000 ease-out"
                   style={{ width: `${bar.value * 10}%` }}

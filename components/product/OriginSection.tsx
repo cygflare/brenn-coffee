@@ -12,7 +12,7 @@ export function OriginSection({ product }: { product: Product }) {
                 <stop offset="100%" stopColor="#E8551C" stopOpacity="0" />
               </radialGradient>
             </defs>
-            <g opacity="0.15" stroke="#ebe6dd" strokeWidth="0.3" fill="none">
+            <g opacity="0.15" stroke="currentColor" strokeWidth="0.3" fill="none" className="text-bone-200">
               <line x1="0" y1="100" x2="400" y2="100" />
               <line x1="0" y1="200" x2="400" y2="200" />
               <line x1="0" y1="300" x2="400" y2="300" />
@@ -60,7 +60,8 @@ export function OriginSection({ product }: { product: Product }) {
                 x="200"
                 y="280"
                 textAnchor="middle"
-                fill="rgba(235,230,221,0.5)"
+                fill="currentColor"
+                className="text-bone-200/70"
                 fontSize="10"
                 letterSpacing="3"
               >
@@ -105,10 +106,10 @@ export function OriginSection({ product }: { product: Product }) {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-[10px] tracking-[0.2em] uppercase text-bone-200/70 mb-1.5">
+      <div className="text-xs tracking-[0.2em] uppercase text-bone-200/70 mb-2">
         {label}
       </div>
-      <div className="font-serif text-lg lg:text-xl italic text-ember">{value}</div>
+      <div className="font-serif text-xl lg:text-2xl italic text-ember">{value}</div>
     </div>
   );
 }

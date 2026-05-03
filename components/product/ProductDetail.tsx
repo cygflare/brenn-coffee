@@ -277,7 +277,7 @@ export function ProductDetail({ product }: { product: ProductWithVariants }) {
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
     <div className="px-5 py-4 border-r last:border-r-0 border-bone-200/15">
-      <div className="text-[10px] tracking-[0.2em] uppercase text-bone-200/65 mb-1.5">
+      <div className="text-xs tracking-[0.18em] uppercase text-bone-200/70 mb-1.5">
         {label}
       </div>
       <div className="font-serif text-lg text-bone-100">{value}</div>
