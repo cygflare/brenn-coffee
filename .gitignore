@@ -6,6 +6,7 @@ node_modules/
 *.log
 .vercel
 .turbo
+.claude/
 dist/
 build/
 coverage/

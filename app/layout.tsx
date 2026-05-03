@@ -19,7 +19,7 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/+$/, '');
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'Brenn Coffee';
 const DEFAULT_DESCRIPTION =
   'Small-batch specialty coffee, roasted slow and shipped fresh. Single-origin beans from independent farms in Ethiopia, Colombia, and Guatemala.';
