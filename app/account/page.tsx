@@ -1,6 +1,11 @@
 import Link from 'next/link';
 
-export const metadata = { title: 'Account — Brenn Coffee' };
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Account',
+  robots: { index: false, follow: false },
+};
 
 export default function AccountPage() {
   return (

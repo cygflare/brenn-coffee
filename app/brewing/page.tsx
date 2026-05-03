@@ -1,4 +1,17 @@
-export const metadata = { title: 'Brewing guides — Brenn Coffee' };
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Brewing guides',
+  description:
+    'How to brew Brenn coffees at home — pour over, espresso, French press, moka pot, and cold brew. Ratios, grind sizes, timings.',
+  alternates: { canonical: '/brewing' },
+  openGraph: {
+    title: 'Brewing guides · Brenn Coffee',
+    description: 'Pour over, espresso, French press — ratios, grind, timings for every method.',
+    url: '/brewing',
+    type: 'website',
+  },
+};
 
 const GUIDES = [
   {

@@ -1,4 +1,17 @@
-export const metadata = { title: 'About — Brenn Coffee' };
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'Brenn began in a converted East London warehouse with a single Probat roaster and a stubborn belief that great coffee should be honest. Read our story.',
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'About · Brenn Coffee',
+    description: 'Slow-roasted, direct-trade, small-batch coffee from East London.',
+    url: '/about',
+    type: 'website',
+  },
+};
 
 export default function AboutPage() {
   return (

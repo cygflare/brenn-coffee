@@ -1,4 +1,17 @@
-export const metadata = { title: 'Journal — Brenn Coffee' };
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Journal',
+  description:
+    'Stories from the roastery — origin trips, brewing experiments, and notes from behind the Probat.',
+  alternates: { canonical: '/journal' },
+  openGraph: {
+    title: 'Journal · Brenn Coffee',
+    description: 'Stories from the roastery — origin, brewing, and craft.',
+    url: '/journal',
+    type: 'website',
+  },
+};
 
 export default function JournalPage() {
   return (

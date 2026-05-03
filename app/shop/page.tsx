@@ -1,7 +1,21 @@
+import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { ShopGrid } from '@/components/shop/ShopGrid';
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: 'Shop',
+  description:
+    'Browse all single-origin coffees from Brenn — fresh-roasted in small batches and shipped UK-wide. Filter by roast level, origin, and flavor profile.',
+  alternates: { canonical: '/shop' },
+  openGraph: {
+    title: 'Shop · Brenn Coffee',
+    description: 'Single-origin specialty coffees, fresh-roasted to order.',
+    url: '/shop',
+    type: 'website',
+  },
+};
 
 export default async function ShopPage() {
   const supabase = createClient();
