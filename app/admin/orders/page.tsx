@@ -35,12 +35,12 @@ export default async function AdminOrdersPage({
 
   return (
     <div>
-      <header className="mb-8">
-        <div className="eyebrow mb-3">Fulfilment</div>
+      <header className="mb-5">
+        <div className="eyebrow mb-2">Fulfilment</div>
         <h1 className="font-serif text-4xl text-bone-100 leading-[1]">Orders</h1>
       </header>
 
-      <div className="flex gap-1 mb-6 border-b border-bone-200/10">
+      <div className="flex gap-1 mb-4 border-b border-bone-200/10">
         {filters.map((f) => {
           const active = (filter ?? 'all') === f.value;
           return (

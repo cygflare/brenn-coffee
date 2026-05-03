@@ -17,7 +17,7 @@ export default async function AccountLayout({ children }: { children: React.Reac
   const user = await requireAuth('/account');
 
   return (
-    <div className="container-x py-12 lg:py-16">
+    <div className="container-x section-y">
       <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-12">
         <aside>
           <div className="mb-8">

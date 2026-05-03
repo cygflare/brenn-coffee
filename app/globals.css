@@ -114,6 +114,18 @@
   .container-x {
     @apply px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto;
   }
+
+  /* Standardised vertical rhythm — use these instead of bespoke py-* values
+     so the whole site shares the same spacing. */
+  .section-y {
+    @apply py-10 lg:py-16;
+  }
+  .section-y-sm {
+    @apply py-8 lg:py-12;
+  }
+  .section-y-lg {
+    @apply py-12 lg:py-20;
+  }
 }
 
 @keyframes fadeUp {

@@ -14,9 +14,9 @@ export default async function AdminProductsPage() {
 
   return (
     <div>
-      <header className="mb-10 flex items-center justify-between">
+      <header className="mb-6 flex items-center justify-between">
         <div>
-          <div className="eyebrow mb-3">Catalog</div>
+          <div className="eyebrow mb-2">Catalog</div>
           <h1 className="font-serif text-4xl text-bone-100 leading-[1]">Products</h1>
         </div>
         <Link href="/admin/products/new" className="btn-primary inline-flex items-center gap-2">

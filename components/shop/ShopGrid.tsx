@@ -124,7 +124,7 @@ export function ShopGrid({ products }: { products: Product[] }) {
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <div className="text-center py-20">
+        <div className="text-center py-14">
           <p className="font-serif text-3xl text-bone-100 mb-2">No matches</p>
           <p className="text-bone-200/55 mb-6">Try adjusting your filters.</p>
           <button

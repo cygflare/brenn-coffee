@@ -50,8 +50,8 @@ const GUIDES = [
 
 export default function BrewingPage() {
   return (
-    <div className="container-x py-16 lg:py-24">
-      <div className="max-w-3xl mb-16">
+    <div className="container-x section-y">
+      <div className="max-w-3xl mb-10">
         <div className="eyebrow mb-4">The ritual</div>
         <h1 className="font-serif text-5xl lg:text-7xl text-bone-100 leading-[0.95] mb-6">
           Brewing <em className="italic text-ember">guides</em>.

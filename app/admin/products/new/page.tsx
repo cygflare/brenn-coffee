@@ -16,8 +16,8 @@ export default function NewProductPage() {
         All products
       </Link>
 
-      <header className="mb-10">
-        <div className="eyebrow mb-3">Catalog</div>
+      <header className="mb-6">
+        <div className="eyebrow mb-2">Catalog</div>
         <h1 className="font-serif text-4xl text-bone-100 leading-[1] mb-3">New product</h1>
         <p className="text-sm text-bone-200/55">
           Saving will auto-generate 8 variants (4 sizes × whole-bean + 4 grinds @ 250g) with calculated prices.

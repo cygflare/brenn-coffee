@@ -20,9 +20,9 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t border-bone-200/10 mt-32">
-      <div className="container-x py-20">
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-16">
+    <footer className="border-t border-bone-200/10 mt-16 lg:mt-24">
+      <div className="container-x section-y">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-10 mb-10">
           <div>
             <Link href="/" className="inline-flex items-center mb-8" aria-label="Brenn Coffee — home">
               <Image

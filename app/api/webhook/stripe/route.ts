@@ -54,6 +54,16 @@ export async function POST(req: NextRequest) {
 
       // Pull customer_id from metadata (set in /api/checkout when buyer is signed in)
       const customerId = session.metadata?.customer_id ?? null;
+      const couponCode = session.metadata?.coupon_code ?? null;
+      const couponId = session.metadata?.coupon_id ?? null;
+      const metadataDiscountPence = session.metadata?.discount_pence
+        ? parseInt(session.metadata.discount_pence, 10)
+        : 0;
+      // Stripe's total_details.amount_discount reflects what Stripe actually
+      // applied (line-item coupon). For free-shipping coupons we recorded the
+      // shipping value in metadata since Stripe shows shipping=0 not as a discount.
+      const stripeDiscountPence = session.total_details?.amount_discount ?? 0;
+      const discountPence = stripeDiscountPence > 0 ? stripeDiscountPence : metadataDiscountPence;
 
       // Create order
       const { data: order, error: orderError } = await supabase
@@ -62,8 +72,10 @@ export async function POST(req: NextRequest) {
           customer_id: customerId,
           email: session.customer_email ?? '',
           status: 'paid',
-          subtotal_pence: (session.amount_subtotal ?? 0),
+          subtotal_pence: (session.amount_subtotal ?? 0) + stripeDiscountPence,
           shipping_pence: (session.shipping_cost?.amount_total ?? 0),
+          discount_pence: discountPence,
+          coupon_code: couponCode,
           total_pence: (session.amount_total ?? 0),
           currency: (session.currency ?? 'gbp').toUpperCase(),
           shipping_name: shippingName,
@@ -129,6 +141,22 @@ export async function POST(req: NextRequest) {
           line_total_pence: item.amount_total,
         }));
         await supabase.from('order_items').insert(orderItems);
+      }
+
+      // Record coupon redemption (trigger increments coupons.times_used)
+      if (couponId && discountPence > 0) {
+        const { error: redemptionError } = await supabase
+          .from('coupon_redemptions')
+          .insert({
+            coupon_id: couponId,
+            order_id: order.id,
+            customer_id: customerId,
+            email: session.customer_email ?? '',
+            discount_pence: discountPence,
+          });
+        if (redemptionError) {
+          console.error('Coupon redemption insert failed:', redemptionError);
+        }
       }
 
       console.log(`✓ Order ${order.order_number} created for ${session.customer_email}`);

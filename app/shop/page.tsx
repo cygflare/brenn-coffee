@@ -27,8 +27,8 @@ export default async function ShopPage() {
     .order('created_at', { ascending: false });
 
   return (
-    <div className="container-x py-16 lg:py-24">
-      <div className="max-w-2xl mb-14">
+    <div className="container-x section-y">
+      <div className="max-w-2xl mb-10">
         <div className="eyebrow mb-4">The collection</div>
         <h1 className="font-serif text-5xl lg:text-7xl text-bone-100 leading-none mb-6">
           All our <em className="italic text-ember">coffees</em>

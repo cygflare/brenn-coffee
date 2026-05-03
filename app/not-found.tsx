@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="container-x py-32 text-center">
+    <div className="container-x section-y-lg text-center">
       <div className="font-serif text-9xl text-ember/30 mb-4">404</div>
       <h1 className="font-serif text-5xl text-bone-100 mb-4">
         <em className="italic">Lost</em> the trail.

@@ -43,9 +43,9 @@ export default async function AdminDashboard() {
   const ordersThisWeekCount = ordersThisWeek?.length ?? 0;
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       <header>
-        <div className="eyebrow mb-3">Overview</div>
+        <div className="eyebrow mb-2">Overview</div>
         <h1 className="font-serif text-4xl text-bone-100 leading-[1]">Dashboard</h1>
       </header>
 

@@ -2,12 +2,13 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { CartItem } from './types';
+import type { CartItem, AppliedCoupon } from './types';
 import { SUBSCRIPTION_DISCOUNT } from './utils';
 
 interface CartStore {
   items: CartItem[];
   isOpen: boolean;
+  appliedCoupon: AppliedCoupon | null;
   addItem: (item: CartItem) => void;
   removeItem: (variantId: string, isSubscription: boolean) => void;
   updateQuantity: (variantId: string, isSubscription: boolean, quantity: number) => void;
@@ -17,6 +18,8 @@ interface CartStore {
   toggleCart: () => void;
   getSubtotal: () => number;
   getItemCount: () => number;
+  setCoupon: (c: AppliedCoupon | null) => void;
+  clearCoupon: () => void;
 }
 
 export const useCart = create<CartStore>()(
@@ -24,6 +27,7 @@ export const useCart = create<CartStore>()(
     (set, get) => ({
       items: [],
       isOpen: false,
+      appliedCoupon: null,
 
       addItem: (newItem) => {
         const items = get().items;
@@ -35,9 +39,9 @@ export const useCart = create<CartStore>()(
         if (existingIdx >= 0) {
           const updated = [...items];
           updated[existingIdx].quantity += newItem.quantity;
-          set({ items: updated, isOpen: true });
+          set({ items: updated, isOpen: true, appliedCoupon: null });
         } else {
-          set({ items: [...items, newItem], isOpen: true });
+          set({ items: [...items, newItem], isOpen: true, appliedCoupon: null });
         }
       },
 
@@ -46,6 +50,7 @@ export const useCart = create<CartStore>()(
           items: get().items.filter(
             (i) => !(i.variantId === variantId && i.isSubscription === isSubscription)
           ),
+          appliedCoupon: null,
         });
       },
 
@@ -60,13 +65,16 @@ export const useCart = create<CartStore>()(
               ? { ...i, quantity }
               : i
           ),
+          appliedCoupon: null,
         });
       },
 
-      clearCart: () => set({ items: [] }),
+      clearCart: () => set({ items: [], appliedCoupon: null }),
       openCart: () => set({ isOpen: true }),
       closeCart: () => set({ isOpen: false }),
       toggleCart: () => set({ isOpen: !get().isOpen }),
+      setCoupon: (c) => set({ appliedCoupon: c }),
+      clearCoupon: () => set({ appliedCoupon: null }),
 
       getSubtotal: () => {
         return get().items.reduce((sum, item) => {
@@ -83,7 +91,7 @@ export const useCart = create<CartStore>()(
     }),
     {
       name: 'brenn-cart',
-      partialize: (state) => ({ items: state.items }), // don't persist isOpen
+      partialize: (state) => ({ items: state.items, appliedCoupon: state.appliedCoupon }),
     }
   )
 );

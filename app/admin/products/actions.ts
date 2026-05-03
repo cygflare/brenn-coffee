@@ -94,6 +94,110 @@ export async function deleteProductAction(id: string) {
   redirect('/admin/products');
 }
 
+// ============================================================================
+// VARIANT ACTIONS
+// ============================================================================
+
+export type VariantFormResult = { error?: string; ok?: boolean };
+
+const ALLOWED_GRINDS = ['whole_bean', 'espresso', 'filter', 'french_press', 'moka_pot'];
+
+function parseVariantForm(formData: FormData) {
+  const size_g = Number(formData.get('size_g'));
+  const grind = String(formData.get('grind') ?? '').trim();
+  const priceGbp = Number(formData.get('price_gbp'));
+  const skuRaw = String(formData.get('sku') ?? '').trim();
+  const is_active = formData.get('is_active') === 'on';
+
+  if (!size_g || size_g <= 0) return { error: 'Size must be greater than 0.' as const };
+  if (!ALLOWED_GRINDS.includes(grind)) return { error: 'Invalid grind type.' as const };
+  if (!priceGbp || priceGbp <= 0) return { error: 'Price must be greater than 0.' as const };
+
+  return {
+    data: {
+      size_g: Math.round(size_g),
+      grind,
+      price_pence: Math.round(priceGbp * 100),
+      sku: skuRaw || null,
+      is_active,
+    },
+  };
+}
+
+export async function createVariantAction(
+  productId: string,
+  _prev: VariantFormResult,
+  formData: FormData
+): Promise<VariantFormResult> {
+  await requireAdmin();
+  const parsed = parseVariantForm(formData);
+  if ('error' in parsed) return { error: parsed.error };
+
+  const db = adminDb();
+
+  // Auto-generate SKU if not supplied
+  let sku = parsed.data.sku;
+  if (!sku) {
+    const { data: product } = await db
+      .from('products')
+      .select('slug')
+      .eq('id', productId)
+      .single();
+    if (product?.slug) {
+      sku = `${product.slug.toUpperCase()}-${parsed.data.size_g}-${parsed.data.grind.slice(0, 3).toUpperCase()}`;
+    }
+  }
+
+  const { error } = await db.from('product_variants').insert({
+    product_id: productId,
+    ...parsed.data,
+    sku,
+  });
+
+  if (error) {
+    if (error.code === '23505') return { error: 'A variant with that SKU already exists.' };
+    return { error: error.message };
+  }
+
+  revalidatePath(`/admin/products/${productId}`);
+  revalidatePath('/shop');
+  return { ok: true };
+}
+
+export async function updateVariantAction(
+  variantId: string,
+  productId: string,
+  _prev: VariantFormResult,
+  formData: FormData
+): Promise<VariantFormResult> {
+  await requireAdmin();
+  const parsed = parseVariantForm(formData);
+  if ('error' in parsed) return { error: parsed.error };
+
+  const db = adminDb();
+  const { error } = await db
+    .from('product_variants')
+    .update(parsed.data)
+    .eq('id', variantId);
+
+  if (error) {
+    if (error.code === '23505') return { error: 'A variant with that SKU already exists.' };
+    return { error: error.message };
+  }
+
+  revalidatePath(`/admin/products/${productId}`);
+  revalidatePath('/shop');
+  return { ok: true };
+}
+
+export async function deleteVariantAction(variantId: string, productId: string) {
+  await requireAdmin();
+  const db = adminDb();
+  await db.from('product_variants').delete().eq('id', variantId);
+  revalidatePath(`/admin/products/${productId}`);
+  revalidatePath('/shop');
+}
+
 function parseProductForm(formData: FormData) {
   const flavorNotes = String(formData.get('flavor_notes') ?? '')
     .split(',')

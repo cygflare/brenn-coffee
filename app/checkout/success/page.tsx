@@ -23,7 +23,7 @@ function SuccessContent() {
   }, [clearCart, sessionId]);
 
   return (
-    <div className="container-x py-32 text-center max-w-2xl mx-auto">
+    <div className="container-x section-y-lg text-center max-w-2xl mx-auto">
       <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-ember/10 border border-ember/30 mb-8">
         <Check size={32} className="text-ember" />
       </div>
@@ -65,7 +65,7 @@ export default function CheckoutSuccessPage() {
   return (
     <Suspense
       fallback={
-        <div className="container-x py-32 text-center text-bone-200/50">
+        <div className="container-x section-y-lg text-center text-bone-200/50">
           Loading...
         </div>
       }

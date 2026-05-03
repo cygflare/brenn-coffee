@@ -95,6 +95,38 @@ export interface CartItem {
   isSubscription: boolean;
 }
 
+export type CouponDiscountType = 'percentage' | 'fixed_amount' | 'free_shipping';
+
+export interface Coupon {
+  id: string;
+  code: string;
+  description: string | null;
+  discount_type: CouponDiscountType;
+  discount_value: number;
+  min_subtotal_pence: number;
+  max_discount_pence: number | null;
+  usage_limit: number | null;
+  usage_limit_per_customer: number | null;
+  times_used: number;
+  starts_at: string | null;
+  expires_at: string | null;
+  is_active: boolean;
+  first_order_only: boolean;
+  applies_to_subscription: boolean;
+  applies_to_one_time: boolean;
+  product_ids: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AppliedCoupon {
+  code: string;
+  description: string | null;
+  discount_type: CouponDiscountType;
+  discount_pence: number;
+  free_shipping: boolean;
+}
+
 export interface Order {
   id: string;
   order_number: string;

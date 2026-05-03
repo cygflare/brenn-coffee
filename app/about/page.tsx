@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="container-x py-16 lg:py-24 max-w-4xl">
+    <div className="container-x section-y max-w-4xl">
       <div className="eyebrow mb-6">Our story</div>
-      <h1 className="font-serif text-5xl lg:text-7xl text-bone-100 leading-[0.95] mb-12">
+      <h1 className="font-serif text-5xl lg:text-7xl text-bone-100 leading-[0.95] mb-10">
         Brenn — to <em className="italic text-ember">burn</em>, with intention.
       </h1>
 

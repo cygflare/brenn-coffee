@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="container-x py-16 lg:py-24 max-w-md mx-auto">
+    <div className="container-x section-y max-w-md mx-auto">
       {children}
     </div>
   );

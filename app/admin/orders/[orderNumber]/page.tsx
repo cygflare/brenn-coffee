@@ -21,7 +21,7 @@ export default async function AdminOrderDetail({ params }: { params: { orderNumb
   const placedAt = new Date(order.created_at);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       <Link
         href="/admin/orders"
         className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-bone-200/60 hover:text-ember"
@@ -31,8 +31,8 @@ export default async function AdminOrderDetail({ params }: { params: { orderNumb
       </Link>
 
       <header>
-        <div className="eyebrow mb-3">Order #{order.order_number}</div>
-        <h1 className="font-serif text-3xl text-bone-100 leading-[1] mb-3">
+        <div className="eyebrow mb-2">Order #{order.order_number}</div>
+        <h1 className="font-serif text-3xl text-bone-100 leading-[1] mb-2">
           {order.shipping_name ?? order.email}
         </h1>
         <p className="text-sm text-bone-200/55">
@@ -41,8 +41,8 @@ export default async function AdminOrderDetail({ params }: { params: { orderNumb
         </p>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
-        <div className="space-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
+        <div className="space-y-6">
           <section>
             <h2 className="text-xs tracking-[0.15em] uppercase text-bone-200/60 mb-4">Items</h2>
             <div className="border border-bone-200/8 divide-y divide-bone-200/8">

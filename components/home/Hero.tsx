@@ -23,7 +23,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/40 to-transparent" />
       </div>
 
-      <div className="container-x relative z-10 py-16 lg:py-20 w-full">
+      <div className="container-x relative z-10 section-y w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

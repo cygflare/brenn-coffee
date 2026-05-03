@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 export default function JournalPage() {
   return (
-    <div className="container-x py-16 lg:py-24">
-      <div className="max-w-3xl mb-16">
+    <div className="container-x section-y">
+      <div className="max-w-3xl mb-10">
         <div className="eyebrow mb-4">Stories from the roastery</div>
         <h1 className="font-serif text-5xl lg:text-7xl text-bone-100 leading-[0.95] mb-6">
           The <em className="italic text-ember">journal</em>.
@@ -27,7 +27,7 @@ export default function JournalPage() {
         </p>
       </div>
 
-      <div className="text-center py-20 border border-bone-200/8 bg-ink-700">
+      <div className="text-center py-14 border border-bone-200/8 bg-ink-700">
         <div className="font-serif text-3xl text-bone-100 mb-3">
           <em className="italic">Coming soon.</em>
         </div>
